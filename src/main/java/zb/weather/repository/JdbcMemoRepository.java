@@ -39,7 +39,7 @@ public class JdbcMemoRepository {
         return jdbcTemplate.query(sql, memoRowMapper(), id).stream().findFirst(); // id가 없는경우 optional로 null값 제거
     }
 
-    //rowmapper = SQL의 결과(record type)를 객체(object type)에 매핑하여 결과를 리턴
+    //mapper 메서드. rowmapper = SQL의 결과(record type)를 객체(object type)에 매핑하여 결과를 리턴
     private RowMapper<Memo> memoRowMapper(){
         return ((rs, rowNum) -> new Memo(
                 rs.getInt("id"),
