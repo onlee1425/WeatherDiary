@@ -112,8 +112,25 @@ public class DiaryService {
     }
 
 
-    //다이어리 조회
+    //특정 날짜 다이어리 조회
     public List<Diary> readDiary(LocalDate date) {
         return diaryRepository.findAllByDate(date);
+    }
+
+    //특정 기간 다이어리 조회
+    public List<Diary> readDiaries(LocalDate startDate, LocalDate endDate) {
+        return diaryRepository.findAllByDateBetween(startDate,endDate);
+    }
+
+    //다이어리 수정
+    public void updateDiary(LocalDate date, String text) {
+        Diary nowDiary = diaryRepository.getFirstByDate(date);
+        nowDiary.setText(text);
+        diaryRepository.save(nowDiary);
+    }
+
+    //다이어리 삭제
+    public void deleteDiary(LocalDate date) {
+        diaryRepository.deleteAllByDate(date);
     }
 }
