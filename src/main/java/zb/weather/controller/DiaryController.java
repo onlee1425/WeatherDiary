@@ -2,13 +2,12 @@ package zb.weather.controller;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import zb.weather.domain.Diary;
 import zb.weather.service.DiaryService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController //http 응답시 상태코드를 지정해서 내려줄 수 있게해줌
 public class DiaryController {
@@ -19,6 +18,7 @@ public class DiaryController {
         this.diaryService = diaryService;
     }
 
+    //일기 생성
     @PostMapping("/create/diary")
     void createDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
             , @RequestBody String text){
@@ -28,7 +28,12 @@ public class DiaryController {
         //ex: 0월0일 오늘은~~했다.
         diaryService.createDiary(date,text);
 
-
     }
 
+    //일기 조회
+    @GetMapping("/read/diary")
+    List<Diary> readDiary(@RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate date){
+        return diaryService.readDiary(date);
+
+    }
 }
