@@ -26,4 +26,11 @@ public class Diary {
     private String text;
     private LocalDate date;
 
+    //diary클래스에서 활용하는 함수
+    public void setDateWeather(DateWeather dateWeather){
+        this.date = dateWeather.getDate();
+        this.weather = dateWeather.getWeather();
+        this.icon = dateWeather.getIcon();
+        this.temperature = dateWeather.getTemperature();
+    }
 }
